@@ -2,10 +2,12 @@ package unoeste.fipp.mercadofipp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import unoeste.fipp.mercadofipp.repositories.ObserverRepository;
+import unoeste.fipp.mercadofipp.repositories.SujeitoRepository;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Usuario {
+public class Usuario implements ObserverRepository {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="usr_id")
@@ -17,6 +19,11 @@ public class Usuario {
     @Column(name="usr_level")
     private int nivel;
 
+    @Override
+    public void update(int qtde, String descricao){
+        System.out.println("Olá " + nome + ", o produto " + descricao +
+                "já voltou ao estoque! A qtde disponível é " + qtde);
+    }
 
     public Usuario() {
 
