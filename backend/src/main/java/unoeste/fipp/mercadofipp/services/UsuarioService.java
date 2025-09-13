@@ -3,6 +3,7 @@ package unoeste.fipp.mercadofipp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Usuario;
 
 import unoeste.fipp.mercadofipp.repositories.UsuarioRepository;
@@ -46,4 +47,15 @@ public class UsuarioService {
             return false;
         }
     }
+
+    //coloca usuario como observador
+    public void inscreverEmAnuncio(Usuario usuario, Anuncio anuncio){
+        anuncio.addObserver(usuario);
+    }
+
+    //tira o usuario de obs
+    public void removerInscricao(Usuario usuario, Anuncio anuncio){
+        anuncio.removeObserver(usuario);
+    }
+
 }

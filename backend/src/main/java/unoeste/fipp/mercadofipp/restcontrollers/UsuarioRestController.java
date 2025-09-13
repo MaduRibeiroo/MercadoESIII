@@ -3,8 +3,10 @@ package unoeste.fipp.mercadofipp.restcontrollers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Usuario;
 import unoeste.fipp.mercadofipp.entities.Erro;
+import unoeste.fipp.mercadofipp.services.AnuncioService;
 import unoeste.fipp.mercadofipp.services.UsuarioService;
 
 import java.util.List;
@@ -14,6 +16,10 @@ import java.util.List;
 public class UsuarioRestController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private AnuncioService anuncioService;
+
     @GetMapping
     public ResponseEntity<Object> getAll(){
         List<Usuario> usuarioList = usuarioService.getAll();
@@ -62,4 +68,32 @@ public class UsuarioRestController {
     // alterar
     //getId
     //apagar
+    
+    @PostMapping("{idUsuario}/inscrever/{idAnuncio}")
+    public ResponseEntity<Object> inscreverEmAnuncio(@PathVariable Long idUsuario, @PathVariable Long idAnuncio){
+        Usuario usuario = usuarioService.getId(idUsuario);
+        Anuncio anuncio = anuncioService.getId(idAnuncio);
+
+        if (usuario == null || anuncio == null) {
+            return ResponseEntity.badRequest().body(new Erro("Usuário ou anúncio não encontrado"));
+        }
+
+        usuarioService.inscreverEmAnuncio(usuario, anuncio);
+        return ResponseEntity.ok("Usuário " + usuario.getNome() + " inscrito para ser notificado do anúncio: " + anuncio.getTitulo());
+    }
+
+
+    @DeleteMapping("{idUsuario}/remover-inscricao/{idAnuncio}")
+    public ResponseEntity<Object> removerInscricao(@PathVariable Long idUsuario,
+                                                   @PathVariable Long idAnuncio) {
+        Usuario usuario = usuarioService.getId(idUsuario);
+        Anuncio anuncio = anuncioService.getId(idAnuncio);
+
+        if (usuario == null || anuncio == null) {
+            return ResponseEntity.badRequest().body(new Erro("Usuário ou anúncio não encontrado"));
+        }
+
+        usuarioService.removerInscricao(usuario, anuncio);
+        return ResponseEntity.ok("Usuário " + usuario.getNome() + " removido da lista de observadores do anúncio: " + anuncio.getTitulo());
+    }
 }

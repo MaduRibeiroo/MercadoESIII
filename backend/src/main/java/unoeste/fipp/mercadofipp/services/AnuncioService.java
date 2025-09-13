@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Pergunta;
+import unoeste.fipp.mercadofipp.entities.Usuario;
 import unoeste.fipp.mercadofipp.repositories.AnuncioRepository;
 import unoeste.fipp.mercadofipp.entities.Foto;
+import unoeste.fipp.mercadofipp.repositories.UsuarioRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +21,14 @@ public class AnuncioService {
     @Autowired
     private AnuncioRepository anuncioRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public AnuncioService(AnuncioRepository anuncioRepository, UsuarioRepository usuarioRepository) {
+        this.anuncioRepository = anuncioRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
     public List<Anuncio> getAll() {
         List<Anuncio> anuncios = anuncioRepository.findAll();
         for (Anuncio a : anuncios) {
@@ -28,9 +38,6 @@ public class AnuncioService {
         }
         return anuncios;
     }
-
-
-
 
     public Anuncio getId(long id) {
         return anuncioRepository.findById(id).orElse(null);
@@ -141,5 +148,37 @@ public class AnuncioService {
         }
 
     }
+
+    public String comprarProduto(Long anuncioId, Long usuarioId){
+        Anuncio anuncio = anuncioRepository.findById(anuncioId)
+                .orElseThrow(() -> new RuntimeException("Anúncio não encontrado"));
+
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        if(anuncio.getEstoque()>0){
+            anuncio.setEstoque(anuncio.getEstoque() - 1);
+            anuncioRepository.save(anuncio);
+            return "Compra realizada com sucesso";
+        }
+        else{
+            anuncio.addObserver(usuario);
+            anuncioRepository.save(anuncio);
+            return "Produto indisponível. Você sera notificado quando voltar ao estoque.";
+        }
+    }
+
+    public String reporEstoque(Long anuncioId, int quantidade){
+        if(quantidade<=0){
+            throw new IllegalArgumentException("Quantidade deve ser positiva!");
+        }
+        Anuncio anuncio = anuncioRepository.findById(anuncioId)
+                .orElseThrow(() -> new RuntimeException("Anúncio não encontrado"));
+
+        anuncio.setEstoque(anuncio.getEstoque() + quantidade);
+        anuncio.notifyObservers();
+        anuncioRepository.save(anuncio);
+        return "Estoque atualizado e clientes notificados";
+    }
+
 
 }

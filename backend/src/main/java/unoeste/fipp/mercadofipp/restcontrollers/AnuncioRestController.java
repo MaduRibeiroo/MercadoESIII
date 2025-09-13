@@ -116,7 +116,17 @@ public class AnuncioRestController {
             return ResponseEntity.badRequest().body(new Erro("Erro ao alterar o Anuncio"));
     }
 
+    @PostMapping("comprar/{anuncioId}/{usuarioId")
+    public ResponseEntity<Object> comprar(@PathVariable Long anuncioId, @PathVariable Long usuarioId){
+        String resposta = anuncioService.comprarProduto(anuncioId,usuarioId);
+        return ResponseEntity.ok(resposta);
+    }
 
+    @PostMapping("repor/{anuncioId}/{quantidade}")
+    public ResponseEntity<Object> repor(@PathVariable Long anuncioId, @PathVariable int quantidade){
+        String resposta = anuncioService.reporEstoque(anuncioId,quantidade);
+        return ResponseEntity.ok(resposta);
+    }
 
 
 }
