@@ -72,6 +72,7 @@ public class Anuncio implements SujeitoRepository{
         observers.remove(o);
     }
 
+
     @Override
     public void notifyObservers(){
         for(ObserverRepository o : observers){
