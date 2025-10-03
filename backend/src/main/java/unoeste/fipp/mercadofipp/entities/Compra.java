@@ -1,19 +1,41 @@
 package unoeste.fipp.mercadofipp.entities;
 
+import jakarta.persistence.*;
+import unoeste.fipp.mercadofipp.services.Template;
+
 import java.util.Date;
 import java.util.List;
 
 public  class Compra extends Template {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "compra_id")
     private Long id;
+
+
+    @Column(name="compra_data")
     private Date data;
+
+    @OneToMany(mappedBy = "compra")
     private List<Itens> itens;
 
-    public Compra() {
+    public Compra() {this(0L,null,null);
     }
 
-    public Compra(Date data, List<Itens> itens) {
+
+
+    public Compra(Long id, Date data, List<Itens> itens) {
+        this.id = id;
         this.data = data;
         this.itens = itens;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getData() {

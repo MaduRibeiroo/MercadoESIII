@@ -1,11 +1,19 @@
-package unoeste.fipp.mercadofipp.entities;
+package unoeste.fipp.mercadofipp.services;
+
+import unoeste.fipp.mercadofipp.entities.Caixa;
+import unoeste.fipp.mercadofipp.entities.Venda;
 
 public abstract class Template {
     private Caixa caixa;
 
-    public final boolean Gravar(){
+    public final boolean Gravar(Template t){
 
         if(caixa.isAberto()){
+            if( t instanceof Venda)
+            {
+                //conecta
+            }
+
 
         }
 
