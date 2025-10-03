@@ -2,8 +2,7 @@ package unoeste.fipp.mercadofipp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import unoeste.fipp.mercadofipp.repositories.ObserverRepository;
-import unoeste.fipp.mercadofipp.repositories.SujeitoRepository;
+import unoeste.fipp.mercadofipp.services.Obserever.ObserverRepository;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
