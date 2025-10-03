@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Venda extends Template{
+    private Long id;
 
     private Date data;
 

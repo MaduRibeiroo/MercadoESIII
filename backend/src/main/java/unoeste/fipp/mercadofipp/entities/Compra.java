@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public  class Compra extends Template {
+    private Long id;
     private Date data;
     private List<Itens> itens;
 

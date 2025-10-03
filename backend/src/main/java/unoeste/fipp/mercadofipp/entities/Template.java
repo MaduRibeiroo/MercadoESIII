@@ -5,7 +5,10 @@ public abstract class Template {
 
     public final boolean Gravar(){
 
-        // loucura
+        if(caixa.isAberto()){
+
+        }
+
         return false;
     }
     protected abstract boolean gravarOb();

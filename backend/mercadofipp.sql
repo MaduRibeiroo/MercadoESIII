@@ -42,7 +42,8 @@ CREATE TABLE public.anuncio (
     anu_desc text,
     anu_price numeric(10,1),
     cat_id integer,
-    usr_id integer
+    usr_id integer,
+    anu_est integer
 );
 
 
@@ -276,7 +277,7 @@ ALTER TABLE ONLY public.usuario ALTER COLUMN usr_id SET DEFAULT nextval('public.
 -- Data for Name: anuncio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.anuncio VALUES (1, 'Fonte gamer PC', '2024-10-23', 'Vendo fonte usada para PC com 500W em ótimo estado, marca Corsair', 190.0, 1, 2);
+INSERT INTO public.anuncio VALUES (1, 'Fonte gamer PC', '2024-10-23', 'Vendo fonte usada para PC com 500W em ótimo estado, marca Corsair', 190.0, 1, 2, 6);
 
 
 --
