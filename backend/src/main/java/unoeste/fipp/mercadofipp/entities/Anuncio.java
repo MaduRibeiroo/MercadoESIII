@@ -43,7 +43,9 @@ public class Anuncio implements SujeitoRepository{
     private List<Foto> fotos = new ArrayList<>();
 
     @Transient
-    private final List<Observer> observers = new ArrayList<>();
+    private  List<ObserverRepository> observers = new ArrayList<>();
+
+
 
     public boolean vender(int qtd, ObserverRepository cliente){
         if(estoque>= qtd){
@@ -67,9 +69,12 @@ public class Anuncio implements SujeitoRepository{
             observers.add(o);
     }
 
+
+
     @Override
-    public void removeObserver(ObserverRepository o){
+    public void removerObserver(ObserverRepository o) {
         observers.remove(o);
+
     }
 
 
@@ -172,7 +177,7 @@ public class Anuncio implements SujeitoRepository{
         this.estoque = estoque;
     }
 
-    public List<Observer> getObservers() {
+    public List<ObserverRepository> getObservers() {
         return observers;
     }
 }

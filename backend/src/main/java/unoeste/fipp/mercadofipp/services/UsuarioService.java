@@ -55,7 +55,7 @@ public class UsuarioService {
 
     //tira o usuario de obs
     public void removerInscricao(Usuario usuario, Anuncio anuncio){
-        anuncio.removeObserver(usuario);
+        anuncio.removerObserver(usuario);
     }
 
 }
