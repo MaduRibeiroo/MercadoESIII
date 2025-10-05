@@ -24,9 +24,9 @@ public class Anuncio implements Subjects {
     private String descricao;
     @Column(name = "anu_price")
     private double preco;
-
+    @Column(name = "anu_stock")
     private int estoque;
-
+    
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Categoria categoria;
