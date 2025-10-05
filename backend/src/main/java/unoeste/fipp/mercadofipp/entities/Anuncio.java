@@ -2,17 +2,16 @@ package unoeste.fipp.mercadofipp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import unoeste.fipp.mercadofipp.services.Obserever.ObserverRepository;
-import unoeste.fipp.mercadofipp.services.Obserever.SujeitoRepository;
+import unoeste.fipp.mercadofipp.services.obserever.Observers;
+import unoeste.fipp.mercadofipp.services.obserever.Subjects;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "perguntas"})
-public class Anuncio implements SujeitoRepository{
+public class Anuncio implements Subjects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "anu_id")
@@ -43,48 +42,7 @@ public class Anuncio implements SujeitoRepository{
     private List<Foto> fotos = new ArrayList<>();
 
     @Transient
-    private  List<ObserverRepository> observers = new ArrayList<>();
-
-
-
-    public boolean vender(int qtd, ObserverRepository cliente){
-        if(estoque>= qtd){
-            estoque-=qtd;
-            return true;
-        }
-        else{
-            addObserver(cliente);
-            return false;
-        }
-    }
-
-    public void reabastecer(int qtd){
-        this.estoque += qtd;
-        notifyObservers();
-    }
-
-    @Override
-    public void addObserver(ObserverRepository o){
-        if(!observers.contains(o))
-            observers.add(o);
-    }
-
-
-
-    @Override
-    public void removerObserver(ObserverRepository o) {
-        observers.remove(o);
-
-    }
-
-
-    @Override
-    public void notifyObservers(){
-        for(ObserverRepository o : observers){
-            o.update(estoque,descricao);
-        }
-        observers.clear();
-    }
+    private  List<Observers> observers = new ArrayList<>();
 
     public Anuncio() {
         this(0L,"",null,"",0, 0,null, null);
@@ -177,7 +135,46 @@ public class Anuncio implements SujeitoRepository{
         this.estoque = estoque;
     }
 
-    public List<ObserverRepository> getObservers() {
+    public List<Observers> getObservers() {
         return observers;
+    }
+
+    public boolean vender(int qtd, Observers cliente){
+        if(estoque>= qtd){
+            estoque-=qtd;
+            return true;
+        }
+        else{
+            addObserver(cliente);
+            return false;
+        }
+    }
+
+    public void reabastecer(int qtd){
+        this.estoque += qtd;
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(Observers o){
+        if(!observers.contains(o))
+            observers.add(o);
+    }
+
+
+
+    @Override
+    public void removerObserver(Observers o) {
+        observers.remove(o);
+
+    }
+
+
+    @Override
+    public void notifyObservers(){
+        for(Observers o : observers){
+            o.update(estoque,descricao);
+        }
+        observers.clear();
     }
 }

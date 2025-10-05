@@ -7,7 +7,6 @@ import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Usuario;
 import unoeste.fipp.mercadofipp.entities.Erro;
 import unoeste.fipp.mercadofipp.services.AnuncioService;
-import unoeste.fipp.mercadofipp.services.UsuarioService;
 
 import java.util.List;
 @CrossOrigin

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MercadoESIII.iml" filepath="$PROJECT_DIR$/.idea/MercadoESIII.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backend/MercadoFipp.iml" filepath="$PROJECT_DIR$/backend/MercadoFipp.iml" />
     </modules>
   </component>
 </project>

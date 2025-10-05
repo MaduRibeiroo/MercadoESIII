@@ -1,17 +1,19 @@
 package unoeste.fipp.mercadofipp.entities;
 
 import jakarta.persistence.*;
-import unoeste.fipp.mercadofipp.services.Template;
+import unoeste.fipp.mercadofipp.services.template.Template;
 
 import java.util.Date;
 import java.util.List;
 
-public  class Compra extends Template {
+public  class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "compra_id")
     private Long id;
 
+    @Column(name = "compra_total")
+    private double total;
 
     @Column(name="compra_data")
     private Date data;
@@ -19,13 +21,12 @@ public  class Compra extends Template {
     @OneToMany(mappedBy = "compra")
     private List<Itens> itens;
 
-    public Compra() {this(0L,null,null);
+    public Compra() {this(0L,0,null,null);
     }
 
-
-
-    public Compra(Long id, Date data, List<Itens> itens) {
+    public Compra(Long id, double total, Date data, List<Itens> itens) {
         this.id = id;
+        this.total = total;
         this.data = data;
         this.itens = itens;
     }
@@ -54,13 +55,22 @@ public  class Compra extends Template {
         this.itens = itens;
     }
 
-    @Override
-    protected boolean gravarOb() {
-        return false;
+    public double getTotal() {
+        return total;
     }
 
-    @Override
-    protected boolean GravarItens() {
-        return false;
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public double calcularTotal() {
+        double to = 0;
+        if (itens != null || !itens.isEmpty()) {
+            for(Itens item: this.getItens()){
+                to += item.getTotal();
+            }
+        }
+        this.total = to;
+        return to;
     }
 }

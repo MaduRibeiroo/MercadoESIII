@@ -180,5 +180,13 @@ public class AnuncioService {
         return "Estoque atualizado e clientes notificados";
     }
 
+    public void atualizarEstoque(Long anuncioId, int quantidade) {
+        Anuncio anuncio = anuncioRepository.findById(anuncioId)
+                .orElseThrow(() -> new RuntimeException("Anúncio não encontrado"));
+
+        // subtrai quantidade vendida do estoque
+        anuncio.setEstoque(anuncio.getEstoque() + quantidade); // quantidade negativa se for venda
+        anuncioRepository.save(anuncio);
+    }
 
 }
