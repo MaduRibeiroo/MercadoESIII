@@ -4,15 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import unoeste.fipp.mercadofipp.entities.Caixa;
 import unoeste.fipp.mercadofipp.entities.Compra;
-import unoeste.fipp.mercadofipp.entities.Itens;
-import unoeste.fipp.mercadofipp.entities.Compra;
+import unoeste.fipp.mercadofipp.entities.Item;
 import unoeste.fipp.mercadofipp.repositories.CaixaRepository;
 import unoeste.fipp.mercadofipp.repositories.CompraRepository;
 import unoeste.fipp.mercadofipp.repositories.ItensRepository;
-import unoeste.fipp.mercadofipp.repositories.CompraRepository;
 import unoeste.fipp.mercadofipp.services.AnuncioService;
-
-import java.util.List;
 
 public class CompraService extends Template{
     @Autowired
@@ -44,7 +40,7 @@ public class CompraService extends Template{
 
     @Override
     protected boolean atualizarEstoque() {
-        for (Itens item : compra.getItens()) {
+        for (Item item : compra.getItens()) {
             anuncioService.atualizarEstoque(item.getProduto().getId(), item.getQtd());
         }
         return true;
@@ -53,7 +49,7 @@ public class CompraService extends Template{
     @Override
     protected boolean gravarItens() {
         try {
-            for (Itens item : compra.getItens()) {
+            for (Item item : compra.getItens()) {
                 item.setTipo("compra");
                 item.setTipoId(compra.getId());
                 item.calcularTotal();

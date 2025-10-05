@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "perguntas"})
+@Table(name = "anuncio")
 public class Anuncio implements Subjects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
