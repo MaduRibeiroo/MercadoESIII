@@ -15,20 +15,14 @@ import unoeste.fipp.mercadofipp.services.AnuncioService;
 import java.util.List;
 
 public class CompraService extends Template{
-    @Autowired
-    private CompraRepository compraRepository;
-    @Autowired
-    private CaixaRepository caixaRepository;
-    @Autowired
-    private ItensRepository itensRepository;
+
     private AnuncioService anuncioService;
 
-    private Caixa caixa;
     private final Compra compra;
 
     public CompraService(Compra compra, Caixa caixa) {
+        super(caixa);
         this.compra = compra;
-        this.caixa = caixa;
     }
 
     @Override

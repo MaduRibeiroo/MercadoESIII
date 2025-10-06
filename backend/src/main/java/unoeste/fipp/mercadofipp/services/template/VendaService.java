@@ -17,12 +17,11 @@ public class VendaService extends Template{
 
     private AnuncioService anuncioService;
 
-    private Caixa caixa;
     private final Venda venda;
 
     public VendaService(Venda venda, Caixa caixa) {
         this.venda = venda;
-        this.caixa = caixa;
+        super(caixa);
     }
 
     @Override
@@ -34,7 +33,6 @@ public class VendaService extends Template{
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : venda.getItens()) {
-
             anuncioService.atualizarEstoque(item.getProduto().getId(), -item.getQtd());
             System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }

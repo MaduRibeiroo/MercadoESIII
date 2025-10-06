@@ -13,23 +13,19 @@ import unoeste.fipp.mercadofipp.repositories.VendaRepository;
 public abstract class Template {
     protected Caixa caixa;
 
+    public Template(Caixa caixa) {
+        this.caixa = caixa;
+    }
+
     public final boolean gravar(){
         System.out.println("\nTemplate chamado.");
         if (caixa != null && caixa.isAberto()) {
-            if(this instanceof VendaService v){
-                v.gravarPrincipal()) ;
-                v.gravarItens();
-                v.atualizarEstoque();
-                v.movimentarCaixa();
-                v.atualizarCaixa();
-                return true;
-            }
-            else if(this instanceof CompraService c) {
-                c.gravarPrincipal())
-                c.gravarItens();
-                c.atualizarEstoque();
-                c.movimentarCaixa();
-                c.atualizarCaixa();
+
+            if (this.gravarPrincipal()) {
+                this.gravarItens();
+                this.atualizarEstoque();
+                this.movimentarCaixa();
+                this.atualizarCaixa();
                 return true;
             }
         }
