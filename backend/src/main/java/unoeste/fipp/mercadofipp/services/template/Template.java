@@ -18,7 +18,7 @@ public abstract class Template {
     protected CompraRepository compraRepository;
 
     public final boolean gravar(){
-
+        System.out.println("\nTemplate chamado.");
         if (caixa != null && caixa.isAberto()) {
             if (gravarPrincipal()) {
                 gravarItens();

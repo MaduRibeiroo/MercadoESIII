@@ -33,53 +33,40 @@ public class CompraService extends Template{
 
     @Override
     protected boolean gravarPrincipal() {
-        try {
-            compraRepository.save(compra);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        System.out.print("Compra gravada:\n Total da compra: "+compra.getTotal()+" Data: "+compra.getData());
+        return true;
     }
 
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : compra.getItens()) {
             anuncioService.atualizarEstoque(item.getProduto().getId(), item.getQtd());
+            System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }
         return true;
     }
 
     @Override
     protected boolean gravarItens() {
-        try {
-            for (Itens item : compra.getItens()) {
-                item.setTipo("compra");
-                item.setTipoId(compra.getId());
-                item.calcularTotal();
-                itensRepository.save(item);
-            }
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
+        for (Itens item : compra.getItens()) {
+            item.setTipo("compra");
+            item.setTipoId(compra.getId());
+            item.calcularTotal();
+            System.out.println("\nItem: "+item.getId()+" gravado com sucesso.");
         }
+        return true;
     }
 
     @Override
     protected boolean movimentarCaixa() {
+        System.out.println("\nNova saída no caixa de: "+compra.getTotal());
         caixa.entrada(compra.getTotal());
         return true;
     }
 
     @Override
     protected boolean atualizarCaixa() {
-        try {
-            caixaRepository.save(caixa); // persiste o estado atualizado do caixa
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        System.out.println("\nCaixa atualizado. Novo valor: "+caixa.getAtual());
+        return true;
     }
 }

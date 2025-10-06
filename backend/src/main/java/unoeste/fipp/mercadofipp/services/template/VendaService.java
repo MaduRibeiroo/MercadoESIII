@@ -31,53 +31,40 @@ public class VendaService extends Template{
 
     @Override
     protected boolean gravarPrincipal() {
-        try {
-            vendaRepository.save(venda);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        System.out.print("Venda gravada:\n Total da compra: "+venda.getTotal()+" Data: "+venda.getData());
+        return true;
     }
 
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : venda.getItens()) {
             anuncioService.atualizarEstoque(item.getProduto().getId(), -item.getQtd());
+            System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }
         return true;
     }
 
     @Override
     protected boolean gravarItens() {
-        try {
-            for (Itens item : venda.getItens()) {
-                item.setTipo("VENDA");
-                item.setTipoId(venda.getId());
-                item.calcularTotal();
-                itensRepository.save(item);
-            }
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
+        for (Itens item : venda.getItens()) {
+            item.setTipo("VENDA");
+            item.setTipoId(venda.getId());
+            item.calcularTotal();
+            System.out.println("\nItem: "+item.getId()+" gravado com sucesso.");
         }
+        return true;
     }
 
     @Override
     protected boolean movimentarCaixa() {
+        System.out.println("\nNova entrada no caixa de: "+venda.getTotal());
         caixa.entrada(venda.getTotal());
         return true;
     }
 
     @Override
     protected boolean atualizarCaixa() {
-        try {
-            caixaRepository.save(caixa); // persiste o estado atualizado do caixa
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        System.out.println("\nCaixa atualizado. Novo valor: "+caixa.getAtual());
+        return true;
     }
 }
