@@ -145,6 +145,8 @@ public class Anuncio implements Subjects {
             return true;
         }
         else{
+            if(cliente instanceof Usuario)
+                System.out.printf("O anuncio não está em estoque, foi adcionado a sua lista "+ ((Usuario) cliente).getNome() + " você sera notifdicado caso ele volte para o estoque\n");
             addObserver(cliente);
             return false;
         }
@@ -152,6 +154,7 @@ public class Anuncio implements Subjects {
 
     public void reabastecer(int qtd){
         this.estoque += qtd;
+        System.out.printf("Notificando Observers:\n\n");
         notifyObservers();
     }
 

@@ -61,6 +61,6 @@ public class Usuario implements Observers {
 
     @Override
     public void update(int qtde, String descricao) {
-
+        System.out.printf("\nO anuncio desejado está em estoque:" + qtde + " ."+descricao);
     }
 }
