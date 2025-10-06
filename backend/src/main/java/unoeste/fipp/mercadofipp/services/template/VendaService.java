@@ -13,12 +13,8 @@ import unoeste.fipp.mercadofipp.services.AnuncioService;
 import java.util.List;
 
 public class VendaService extends Template{
-    @Autowired
-    private VendaRepository vendaRepository;
-    @Autowired
-    private CaixaRepository caixaRepository;
-    @Autowired
-    private ItensRepository itensRepository;
+
+
     private AnuncioService anuncioService;
 
     private Caixa caixa;
@@ -38,6 +34,7 @@ public class VendaService extends Template{
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : venda.getItens()) {
+
             anuncioService.atualizarEstoque(item.getProduto().getId(), -item.getQtd());
             System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }
