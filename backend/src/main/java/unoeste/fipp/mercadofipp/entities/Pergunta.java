@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "anuncio"})
-@Table(name = "pergunta")
 public class Pergunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

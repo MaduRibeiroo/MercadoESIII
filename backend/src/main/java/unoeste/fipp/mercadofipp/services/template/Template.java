@@ -1,7 +1,12 @@
 package unoeste.fipp.mercadofipp.services.template;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import unoeste.fipp.mercadofipp.entities.Caixa;
+import unoeste.fipp.mercadofipp.entities.Compra;
+import unoeste.fipp.mercadofipp.entities.Itens;
+import unoeste.fipp.mercadofipp.entities.Venda;
+import unoeste.fipp.mercadofipp.repositories.AnuncioRepository;
 import unoeste.fipp.mercadofipp.repositories.CompraRepository;
 import unoeste.fipp.mercadofipp.repositories.VendaRepository;
 

@@ -3,12 +3,11 @@ package unoeste.fipp.mercadofipp.entities;
 
 
 import jakarta.persistence.*;
+import unoeste.fipp.mercadofipp.services.template.Template;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "venda")
 public class Venda{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +22,14 @@ public class Venda{
     private Date data;
 
     @OneToMany(mappedBy = "venda")
-    private List<Item> itens;
+    private List<Itens> itens;
 
 
 
     public Venda() {this(0L,0, null,null);
     }
 
-    public Venda(Long id, double total, Date data, List<Item> itens) {
+    public Venda(Long id, double total, Date data, List<Itens> itens) {
         this.id = id;
         this.total = total;
         this.data = data;
@@ -53,11 +52,11 @@ public class Venda{
         this.data = data;
     }
 
-    public List<Item> getItens() {
+    public List<Itens> getItens() {
         return itens;
     }
 
-    public void setItens(List<Item> itens) {
+    public void setItens(List<Itens> itens) {
         this.itens = itens;
     }
 
@@ -72,7 +71,7 @@ public class Venda{
     public double calcularTotal() {
         double to = 0;
         if (itens != null || !itens.isEmpty()) {
-           for(Item item: this.getItens()){
+           for(Itens item: this.getItens()){
                to += item.getTotal();
            }
         }

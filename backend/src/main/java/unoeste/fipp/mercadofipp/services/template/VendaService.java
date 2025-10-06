@@ -3,12 +3,14 @@ package unoeste.fipp.mercadofipp.services.template;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import unoeste.fipp.mercadofipp.entities.Caixa;
-import unoeste.fipp.mercadofipp.entities.Item;
+import unoeste.fipp.mercadofipp.entities.Itens;
 import unoeste.fipp.mercadofipp.entities.Venda;
 import unoeste.fipp.mercadofipp.repositories.CaixaRepository;
 import unoeste.fipp.mercadofipp.repositories.ItensRepository;
 import unoeste.fipp.mercadofipp.repositories.VendaRepository;
 import unoeste.fipp.mercadofipp.services.AnuncioService;
+
+import java.util.List;
 
 public class VendaService extends Template{
     @Autowired
@@ -40,7 +42,7 @@ public class VendaService extends Template{
 
     @Override
     protected boolean atualizarEstoque() {
-        for (Item item : venda.getItens()) {
+        for (Itens item : venda.getItens()) {
             anuncioService.atualizarEstoque(item.getProduto().getId(), -item.getQtd());
         }
         return true;
@@ -49,7 +51,7 @@ public class VendaService extends Template{
     @Override
     protected boolean gravarItens() {
         try {
-            for (Item item : venda.getItens()) {
+            for (Itens item : venda.getItens()) {
                 item.setTipo("VENDA");
                 item.setTipoId(venda.getId());
                 item.calcularTotal();

@@ -2,10 +2,10 @@ package unoeste.fipp.mercadofipp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import unoeste.fipp.mercadofipp.services.obserever.Observers;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Observers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="usr_id")
@@ -59,4 +59,8 @@ public class Usuario {
         this.nivel = nivel;
     }
 
+    @Override
+    public void update(int qtde, String descricao) {
+
+    }
 }

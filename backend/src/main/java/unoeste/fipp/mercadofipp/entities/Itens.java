@@ -2,9 +2,7 @@ package unoeste.fipp.mercadofipp.entities;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "item")
-public class Item {
+public class Itens {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +25,10 @@ public class Item {
     @Column(name = "item_tipoId")
     private Long tipoId;
 
-    public Item() {
+    public Itens() {
     }
 
-    public Item(Long id, int qtd, Anuncio produto, double total, Long tipoId, String tipo) {
+    public Itens(Long id, int qtd, Anuncio produto, double total, Long tipoId, String tipo) {
         this.id = id;
         this.qtd = qtd;
         this.produto = produto;
