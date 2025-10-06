@@ -1,6 +1,9 @@
 package unoeste.fipp.mercadofipp;
 
 import unoeste.fipp.mercadofipp.entities.*;
+import unoeste.fipp.mercadofipp.services.template.CompraService;
+import unoeste.fipp.mercadofipp.services.template.Template;
+import unoeste.fipp.mercadofipp.services.template.VendaService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,11 +21,16 @@ public class Main {
 
         LocalDate dataAtual = LocalDate.now();
 
-        Anuncio anuncio1 = new Anuncio(127L, "Celta Vermelho", dataAtual, "Só a capa da gaita", 15000, 1, categoria, usr1);
+        Anuncio anuncio1 = new Anuncio(127L, "Celta Vermelho", dataAtual, "Só a capa da gaita", 15000, 3, categoria, usr1);
         Anuncio anuncio2 = new Anuncio(127L, "Fuscão Preto", dataAtual, "Fuscão preto você é feito de aço Fez o meu peito em pedaço", 150000, 1, categoria, usr1);
         Anuncio anuncio3 = new Anuncio(127L, "Um saco de batata", dataAtual, "Tem algumas boas ainda nele da pra aproveitar", 25, 5, categoria2, usr1);
 
-        Itens item = new Itens(null, 5, anuncio3, 5 * 25, null, null);
+
+
+        List<Itens> list =  new ArrayList<>();
+        Itens item1 = new Itens(null, 2, anuncio3, 2 * 25, null, null);
+        Itens item2 = new Itens(null, 1, anuncio2, 150000, null, null);
+        Itens item3 = new Itens(null, 1, anuncio3, 15000, null, null);
 
 
         anuncio3.vender(5,usr2);
@@ -30,6 +38,21 @@ public class Main {
         anuncio3.vender(8,usr2);
         anuncio3.reabastecer(100); // reabastece e notifica os observer
 
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
+
+
+        Caixa caixa = new Caixa(true,0.50,0.25,null);
+        Venda venda =  new Venda(99L,0.0,new Date(),list);
+        venda.calcularTotal();
+        Template novo = new VendaService(venda,caixa);
+        novo.gravar();
+
+        Compra compra =  new Compra(99L,0.0,new Date(),list);
+        compra.calcularTotal();
+        Template novo2 = new CompraService(compra,caixa);
+        novo2.gravar();
 
 
     }

@@ -20,11 +20,11 @@ public abstract class Template {
     public final boolean gravar(){
         System.out.println("\nTemplate chamado.");
         if (caixa != null && caixa.isAberto()) {
-            if (gravarPrincipal()) {
-                gravarItens();
-                atualizarEstoque();
-                movimentarCaixa();
-                atualizarCaixa();
+            if (this.gravarPrincipal()) {
+                this.gravarItens();
+                this.atualizarEstoque();
+                this.movimentarCaixa();
+                this.atualizarCaixa();
                 return true;
             }
         }

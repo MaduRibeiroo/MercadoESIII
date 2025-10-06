@@ -66,7 +66,7 @@ public class CompraService extends Template{
 
     @Override
     protected boolean atualizarCaixa() {
-        System.out.println("\nCaixa atualizado. Novo valor: "+caixa.getAtual());
+        System.out.println("\nCaixa atualizado. Novo valor: "+caixa.getSaldoAtual());
         return true;
     }
 }
