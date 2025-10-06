@@ -2,6 +2,7 @@ package unoeste.fipp.mercadofipp.services.template;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Service;
 import unoeste.fipp.mercadofipp.entities.Caixa;
 import unoeste.fipp.mercadofipp.entities.Itens;
 import unoeste.fipp.mercadofipp.entities.Venda;
@@ -12,16 +13,14 @@ import unoeste.fipp.mercadofipp.services.AnuncioService;
 
 import java.util.List;
 
+
 public class VendaService extends Template{
-
-
-    private AnuncioService anuncioService;
 
     private final Venda venda;
 
     public VendaService(Venda venda, Caixa caixa) {
-        this.venda = venda;
         super(caixa);
+        this.venda = venda;
     }
 
     @Override
@@ -33,7 +32,6 @@ public class VendaService extends Template{
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : venda.getItens()) {
-            anuncioService.atualizarEstoque(item.getProduto().getId(), -item.getQtd());
             System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }
         return true;

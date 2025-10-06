@@ -28,9 +28,9 @@ public class Main {
 
 
         List<Itens> list =  new ArrayList<>();
-        Itens item1 = new Itens(null, 2, anuncio3, 2 * 25, null, null);
-        Itens item2 = new Itens(null, 1, anuncio2, 150000, null, null);
-        Itens item3 = new Itens(null, 1, anuncio3, 15000, null, null);
+        Itens item1 = new Itens(1L, 2, anuncio3, 2 * 25, null, null);
+        Itens item2 = new Itens(2L, 1, anuncio2, 150000, null, null);
+        Itens item3 = new Itens(3L, 1, anuncio3, 15000, null, null);
 
 
         anuncio3.vender(5,usr2);
@@ -42,8 +42,13 @@ public class Main {
         list.add(item2);
         list.add(item3);
 
+        MovimentacaoCaixa mov = new MovimentacaoCaixa("Saida",99);
+        List<MovimentacaoCaixa> movList= new ArrayList<>();
+        movList.add(mov);
 
-        Caixa caixa = new Caixa(true,0.50,0.25,null);
+
+        Caixa caixa = new Caixa(true,0.50,0.25,movList);
+
         Venda venda =  new Venda(99L,0.0,new Date(),list);
         venda.calcularTotal();
         Template novo = new VendaService(venda,caixa);

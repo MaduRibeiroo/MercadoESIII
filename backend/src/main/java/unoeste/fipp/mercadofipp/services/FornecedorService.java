@@ -1,6 +1,7 @@
 package unoeste.fipp.mercadofipp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Fornecedor;
 import unoeste.fipp.mercadofipp.repositories.FornecedorRepository;
@@ -8,6 +9,7 @@ import unoeste.fipp.mercadofipp.services.obserever.ForncedorObserver;
 
 import java.util.List;
 
+@Service
 public class FornecedorService {
     @Autowired
     private FornecedorRepository fornecedorRepository;

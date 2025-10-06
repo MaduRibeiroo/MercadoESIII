@@ -16,7 +16,6 @@ import java.util.List;
 
 public class CompraService extends Template{
 
-    private AnuncioService anuncioService;
 
     private final Compra compra;
 
@@ -34,7 +33,6 @@ public class CompraService extends Template{
     @Override
     protected boolean atualizarEstoque() {
         for (Itens item : compra.getItens()) {
-            anuncioService.atualizarEstoque(item.getProduto().getId(), item.getQtd());
             System.out.println("\nAnuncio: "+item.getProduto().getTitulo()+" teve estoque atualizado.");
         }
         return true;

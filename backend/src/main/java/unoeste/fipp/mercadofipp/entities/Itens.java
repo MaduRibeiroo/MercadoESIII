@@ -2,6 +2,7 @@ package unoeste.fipp.mercadofipp.entities;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Itens {
 
     @Id

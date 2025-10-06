@@ -7,6 +7,7 @@ import unoeste.fipp.mercadofipp.repositories.UsuarioRepository;
 
 import java.util.List;
 
+
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
